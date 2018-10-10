@@ -30,5 +30,5 @@ int main()
     if (forNewsom > forCox)
         cout << "Newsom is predicted to win the election." << endl;
     else
-        cout << "Cox is predicted to win the election." << endl;
+	 cout << "Cox is expected to win the election." << endl;
 }
