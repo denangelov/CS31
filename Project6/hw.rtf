@@ -1,0 +1,114 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf100
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 1 \
+a.\
+int main() \{\
+	int arr[3] = \{ 5, 10, 15 \};\
+	int* ptr = arr;\
+	\
+	//changed order of numbers in the array since the while loop prints from last item to first item\
+	*ptr = 10;\
+	*(ptr + 1) = 20; // no parentheses in original\
+	ptr += 2;\
+	*ptr = 30; //ptr[0] doesn\'92t work because the brackets as an operator are not defined\
+	\
+	while(ptr >= arr) \
+	\{\
+		cout << *ptr << endl; //print out value pointer is pointing to first before decrementing ptr\
+		ptr--; \
+	\}\
+\}\
+b.\
+The original function doesn\'92t work because the pointer parameter pToMax wasn\'92t being passed by reference and instead was being passed by value. This meant that any changes made to pToMax within the function were only temporary.\
+\
+void findMax(int arr[], int n, int*& pToMax) \{\
+	if(n <= 0)\
+		return;\
+	pToMax = arr;\
+	\
+	for(int i = 1; i < n; i++) \{\
+		if(arr[i] > *pToMax)\
+			pToMax = arr + i;\
+	\}\
+\}\
+c.\
+ptr is not initialized to anything which means that it is not necessarily pointing to an int. This causes an error when trying to dereference and print out the int that ptr points to.\
+\
+int main() \{\
+	int num = 5;\
+	int* ptr = &num;\
+	computeCube(num, ptr);\
+	cout << \'93Five cubed is \'93 << *ptr << endl;\
+\}\
+d.\
+The original implementation means to compare the characters in each cstring but it never dereferences the pointers to the cstrings which get passed in as arguments to the function.\
+\
+bool strequal(const char str1[], const char str2[]) \{\
+	while(*str1 != 0 && *str2 != 0) \{\
+		if(*str1 != *str2)\
+			return false;\
+		str1++;\
+		str2++;\
+	\}\
+	return *str1 == *str2;\
+\}\
+e.\
+The problem is that anArray only exists within the local scope of the getPtrToArray function where it is declared. As a result, after the function is done executing, the values in the array are essentially deleted and the values at those memory addresses are now random junk. This means that in the main function when the values pointed to by ptr are printed, everything but ptr[0] is junk (ptr[0] is still 100 because the ptr returned by the getPtrToArray function points to the first number in anArray which is 100).\
+\
+2 \
+a.\
+double* cat;\
+\
+b.\
+double mouse[5];\
+\
+c.\
+cat = mouse + 4;\
+\
+d.\
+*cat = 25;\
+\
+e.\
+*(mouse + 3) = 42;\
+\
+f.\
+cat -= 3;\
+\
+g.\
+cat[1] = 27;\
+\
+h.\
+cat[0] = 54;\
+\
+i.\
+bool b = (*cat == *(cat+1));\
+\
+j.\
+bool d = (cat == mouse);\
+\
+3\
+a.\
+double mean(const double* scores, int numScores) \{\
+	double tot = 0;\
+	for(int i = 0; i < numScores; i++) \{\
+		tot += *(scores + i);\
+	\}\
+	return tot/numScores;\
+\}\
+\
+b.\
+const char* findTheChar(const char str[], char chr) \{\
+	for(int k = 0; *(str + k) != 0; k++) \{\
+		if(*(str+k) == chr)\
+			return (str + k);\
+	\}\
+	return nullptr;\
+\}\
+\
+c.\
+}

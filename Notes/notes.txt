@@ -1,0 +1,231 @@
+	true/false statement : 0 ==> false ; nonzero ==> true
+&& has higher precedence than ||
+
+string s = ""
+if (s = "") //won't compile
+    ...
+
+De Morgan's Law for boolean expressions
+    not(A or B) ==> (not A) and (not B)
+    not (A and B) ==> (not A) or (not B)
+
+for (initialization; stay-in-loop condition; prepare-for-next-iteration) //for loop syntax
+    statement
+
+#include <cctype> //test properties of a character library (isdigit function)
+
+isdigit(ch) => '1' '2' '3' ...
+
+islower(ch) => 'a' 'b' 'c' ...
+
+isupper(ch) => 'A' 'B' 'C' ...
+
+isalpha(ch) => 'a' 'A' 'b' 'B' ...
+
+toupper(ch) => returns the uppercase equivalent of the character argument passed in (a -> A)
+
+double - a spot in memory that can hold an actual number
+double& - another name for an already existing double
+
+"reference to double"
+
+"passing by value" ==> copy the argument into a new object
+"passing by reference" ==> no copy is made; the parameter is just another name for the original object
+
+Midterm Time!
+5:15 - 6:20 pm Thursday Kaplan A51
+ 
+"nD3r,ct7d,0r7D,Id4r,sd3R,rI4d", 'R', v - 95
+"Nd3R,ct7d,OR7D,Id4r,sd3R,rI4d", 'd', v - 94
+"ND3R2d1g2i,Ct7D1r,ca0D3g3r,Sd3r00d", 'D', v - 72
+
+break - breaks out of loop entirely
+continue - ends current iteration of loop prematurely and moves on to next iteration
+
+char ch = 76; // 'L' if ASCII is the encoding, '(' if EBCDIC
+int k = 'L'; // 76 if ASCII, 211 if EBCDIC 
+
+if((ch >= 'A' && ch <= 'D') || ch == 'F') // depends on encoding
+
+	'a' < 'b' 'b' < 'c' ... 'y' < 'z'
+ 	'A' < 'B' 'B' < 'C' ... 'Y' < 'Z'
+	'0' < '1' ... '8' < '9' // and they're consecutive!
+
+ch++; //ch now is 77
+k = 77;
+
+double d = 3.68;
+cout.set(ios::fixed);
+cout.precision(1);
+
+cout << d; // calls the function for outputting doubles; writes '3' '.' '7'
+		// if ASCII, this is 51 46 55
+		// if EBCDIC, this is 243 75 247
+cout << k; // calls the function for outputting ints; writes '7' '7'
+		//if ASCII, this is 55 55
+		//if EBCDIC, this is 247 247
+cout << ch; // calls the function for char; writes 'M' if ASCII, '(' if EBCDIC
+
+string s = "A7";
+cout << s; // calls the function for string; writes 'A' '7'
+		//if ASCII, this is 65 55
+		//if EBCDIC, this is 193 247
+
+=========
+C Strings
+=========
+
+char t[10] = {'G', 'h', 'o', 's', 't'};
+char t[10] = "Ghost"; //abbreviation for above
+char s[100] = "";
+'\0' - zero byte / null byte
+
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <cstring> // library for useful functions with c strings
+
+strlen(t) // string length
+
+for(int k = 0; k != '\0'; k++) {
+	cout << t[k] << endl;
+}
+cout << t;
+cin.getline(s,100);
+
+s = t; //Won't compile! Can't assign arrays
+
+strcpy(s, t); //strcpy(destination, source);
+strcat(s, "!!!"); //now s is Ghost!!!
+strcmp(a, b);
+	negative if a comes before b
+	0 if a equals b
+	positive if a comes after b
+
+========
+Pointers
+========
+
+Another way to implement passing by reference
+Traverse arrays
+Manipulate dynamic storage
+Represent relationships in data structures
+
+&x means "generate a pointer to x" "address of x"
+*p means "follow the pointer p" "the object that p points to"
+double* means pointer-to-double
+double& means reference-to-double
+
+double a = 3.2;
+double b = 5.1;
+
+double* p = &a;
+						//double* q = 7.6; incompatible types
+double c = a;
+double d = *p; // d = 3.2
+double& dd = d;
+
+*p += 4;
+int k = 7;
+						//p = &k; p can only point to doubles!
+int* z = &k;
+cout << (k * p);
+cout << (k * *p);
+cout << (*z**p);
+
+*&x ==> x
+&a[i] + j ==> &a[i+j]
+&a[i] < &a[j] ==> i < j
+a <==> &a[0]
+
+const int MAXSIZE = 5;
+double da[MAXSIZE];
+int k;
+double* dp;
+
+for(k = 0; k < MAXSIZE; k++) {
+	da[k] = 3.6;
+}
+
+for(dp = da; dp < da + MAXSIZE; dp++) {
+	*dp = 3.6;
+}
+
+=======
+Structs
+=======
+
+struct Employee {
+	string name;
+	double salary;
+	int age;
+}; <=== DON'T FORGET THE SEMI COLON!
+
+void celebrateBirthday(Employee* ep) {
+	ep->age++;
+}
+
+double totalPayroll(const Employee emps[], int n) {
+	double total = 0;
+	for(int i = 0; i < n; i++) {
+		total += emps[k].salary;
+	}
+	return total;
+}
+
+int main() {
+	Employee e1;
+	Employee e2;
+
+	e1.name = "Fred";
+	e1.salary = 60000;
+	e1.age = 50;
+	
+	cout << "Enter a name: ";
+	getline(cin, e2.name);
+	cin >> e2.salary;
+
+	e1.age++;
+
+	Employee company[100];
+	int nEmployees = 0;
+	... read in some info, fill company and set nEmployees
+	
+
+	for(int k = 0; k != company[3].name.size(); k++) {
+		cout << company[3].name[k] << endl;
+	}
+}
+
+
+an object 		the name
+of some 	.	of a member
+struct type		of that type
+
+
+caller's object should not change:
+	pass by value ==> best if objects are cheap to copy
+	pass by const reference ==> best if objects are not cheap to copy
+
+caller's object should change:
+	pass by (non-const) reference
+
+a pointer to		the name of	
+an object of	->	a member of 
+some struct type	that type
+
+====================================================================================
+
+struct Target {
+
+	//Invariant:
+	//	history contains only Rs and Ls
+	//	pos == number of Rs - number of Ls in history
+	int pos;
+	string history;
+};
+
+int main() {
+	Target t;
+	t.pos = 0;
+	t.history = "";
+}
